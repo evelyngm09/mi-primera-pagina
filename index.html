@@ -7,42 +7,40 @@
     <!-- Iconos de FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- ESTILOS CSS PARA LOS BOTONES Y DISEÑO -->
     <style>
-        body {
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
         body {
-            background-color: #1e2638;
+            background-color: #1e2638; /* Fondo azul oscuro */
             color: #ffffff;
             font-family: Arial, sans-serif;
             padding: 20 px;
         }
 
-        /* BARRA SUPERIOR DE BOTONES */
+        /* BARRA SUPERIOR DE BOTONES DE NAVEGACIÓN */
         .navbar {
             display: flex;
             justify-content: center;
-            gap: 12 px;
+            gap: 15 px;
             background-color: #121722;
             padding: 15 px;
-            border-radius: 12 px;
-            flex-wrap: wrap;
+            border-radius: 12  px;
             margin-bottom: 30 px;
+            flex-wrap: wrap;
             box-shadow: 0 4 px 10 px rgba (0,0,0,0.4);
         }
 
-        /* ESTILO DE CADA BOTÓN REDONDEADO */
         .btn-nav {
-            background: linear-gradient (135 deg, #e65c00, #f9d423); /* Degradado Naranja/Rojo */
+            background: linear-gradient (135 deg, #e65c00, #f9d423);
             color: white;
             text-decoration: none;
             padding: 10 px 18 px;
             border-radius: 8 px;
-            font-size: 13 px;
+            font-size: 14 px;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -51,7 +49,7 @@
         }
 
         .btn-nav:hover {
-            transform: translate Y (-2 px);
+            transform: translateY (-2 px);
             opacity: 0.9;
         }
 
@@ -59,56 +57,129 @@
         .main-container {
             max-width: 1000 px;
             margin: 0 auto;
+        }
+
+        .description-box {
             text-align: center;
+            font-size: 18 px;
+            margin-bottom: 30 px;
+            background-color: #2a344d;
+            padding: 15 px;
+            border-radius: 10 px;
+            box-shadow: 0 4 px 8 px rgba (0,0,0,0.2);
         }
 
-        .main-title {
-            margin-bottom: 20 px;
-            font-size: 20 px;
-        }
-
-        /* ESTILO PARA TUS IMÁGENES DE PERFIL */
-        .image-container {
+        /* DISEÑO A DOS COLUMNAS (FOTO + TABLA) */
+        .content-grid {
             display: flex;
+            gap: 25 px;
+            align-items: flex-start;
             justify-content: center;
-            gap: 20 px;
             flex-wrap: wrap;
-            margin-top: 20 px;
         }
 
+        /* FOTO DE PERFIL */
         .profile-img {
+            max-width: 320 px;
+            width: 100 %;
             border-radius: 15 px;
-            box-shadow: 0 8 px 16 px rgba (0,0,0,0.3);
-            max-width: 100 %;
-            height: auto;
+            box-shadow: 0 8 px 16 px rgba (0,0,0,0.4);
+            object-fit: cover;
+        }
+
+        /* TABLA DE VIRTUDES Y DEFECTOS */
+        .custom-table {
+            background-color: #ffffff;
+            color: #333333;
+            border-collapse: collapse;
+            border-radius: 12 px;
+            overflow: hidden;
+            box-shadow: 0 8 px 16 px rgba (0,0,0,0.4);
+            min-width: 300 px;
+        }
+
+        .custom-table th {
+            background-color: #e2e8f0;
+            font-size: 20 px;
+            padding: 12 px 20 px;
+            border-bottom: 2 px solid #cbd5e1;
+            text-align: left;
+        }
+
+        .custom-table td {
+            padding: 12 px 20 px;
+            font-size: 16 px;
+            vertical-align: top;
+            border-right: 1 px solid #e2e8f0;
+        }
+
+        .custom-table ul {
+            list-style-type: disc;
+            padding-left: 20 px;
+        }
+
+        .custom-table li {
+            margin-bottom: 8 px;
         }
     </style>
 </head>
 <body>
 
-    <!-- BARRA DE BOTONES (Tus enlaces convertidos en botones con iconos) -->
+    <!-- MENÚ DE BOTONES NAVEGABLES -->
     <nav class="navbar">
-        <a href="azul-1.html" class="btn-nav"><i class="fa-solid fa-house"></i> Azul</a>
+        <a href="index.html" class="btn-nav"><i class="fa-solid fa-house"></i> Principal</a>
+        <a href="azul-1.html" class="btn-nav"><i class="fa-solid fa-layer-group"></i> Azul</a>
         <a href="verde-2.html" class="btn-nav"><i class="fa-solid fa-download"></i> Verde</a>
         <a href="amarillo-3.html" class="btn-nav"><i class="fa-solid fa-magnifying-glass"></i> Amarillo</a>
-        <a href="Principal-4.html" class="btn-nav"><i class="fa-solid fa-star"></i> Principal</a>
     </nav>
 
-    <!-- CONTENIDO DE TU PÁGINA -->
     <main class="main-container">
-        <p class="main-title">¡Bienvenidos a mi primera página! Soy Evelyn González y me gustan los kdramas...</p>
+        <!-- TU DESCRIPCIÓN EN LA PARTE SUPERIOR -->
+        <div class="description-box">
+            <p>¡Bienvenidos a mi primera página! Soy Evelyn González y me gustan los kdramas...</p>
+        </div>
 
-        <h2>Principal (index)</h2>
+        <!-- FOTO Y TABLA ALINEADAS LADO A LADO -->
+        <div class="content-grid">
+            <img src="IMG_20260609_192320445_MFN.jpg" alt="Imagen personal" class="profile-img">
 
-        <!-- TUS IMÁGENES DE PERFIL Y TABLA DE VIRTUDES -->
-        <div class="image-container">
-            <img src="IMG_20260609_192320445_MFN.jpg" width="300" alt="Imagen personal" class="profile-img">
-            <img src="Captura de pantalla 2026-09-26 001634.png" width="500" alt="Tabla Virtudes y Defectos" class="profile-img">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Virtudes</th>
+                        <th>Defectos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>comprensiva</li>
+                                <li>creativa</li>
+                                <li>agradable</li>
+                                <li>honesta</li>
+                                <li>activa</li>
+                                <li>generosa</li>
+                                <li>divertida</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>distraída</li>
+                                <li>seria</li>
+                                <li>reservada</li>
+                                <li>desesperada</li>
+                                <li>impulsiva</li>
+                                <li>tímida</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
 
 </body>
 </html>
-
 
    
