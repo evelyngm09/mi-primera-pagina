@@ -178,7 +178,762 @@
             </table>
         </div>
     </main>
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piel Bonita - Cuida hoy, tu mejor versión</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandGreen: '#A7C4A0',
+                        brandGreenLight: '#E8F0E6',
+                        brandPink: '#F7D7E0',
+                        brandPinkDark: '#B56576',
+                        brandBg: '#FBF9F6',
+                        brandText: '#6B686B',
+                        brandDarkText: '#333333'
+                    },
+                    fontFamily: {
+                        title: ['Poppins', 'Montserrat', 'sans-serif'],
+                        body: ['Open Sans', 'Lato', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #FBF9F6;
+            color: #333333;
+            font-family: 'Open Sans', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .view-section {
+            display: none;
+        }
+        .view-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
 
+    <!-- Top Alert Bar / Announcement -->
+    <div class="bg-brandGreen text-white text-xs text-center py-1.5 px-4 font-medium flex justify-center items-center gap-2">
+        <span>✨ Tip del día: ¡No olvides aplicar tu protector solar incluso en días nublados!</span>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <button onclick="switchView('inicio')" class="flex items-center gap-3 text-left group">
+                <div class="w-10 h-10 rounded-full bg-brandGreenLight flex items-center justify-center text-brandGreen text-xl group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-spa"></i>
+                </div>
+                <div>
+                    <span class="block text-xl font-bold font-title text-gray-800 leading-none">Piel Bonita</span>
+                    <span class="text-[11px] text-brandText tracking-wide">Cuida hoy, tu mejor versión</span>
+                </div>
+            </button>
+
+            <!-- Desktop Links -->
+            <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+                <button onclick="switchView('inicio')" id="nav-inicio" class="nav-btn px-3 py-2 rounded-full text-sm font-medium transition-all text-gray-700 hover:text-brandPinkDark">Inicio</button>
+                <button onclick="switchView('tips')" id="nav-tips" class="nav-btn px-3 py-2 rounded-full text-sm font-medium transition-all text-gray-700 hover:text-brandPinkDark">Tips</button>
+                <button onclick="switchView('articulo')" id="nav-articulo" class="nav-btn px-3 py-2 rounded-full text-sm font-medium transition-all text-gray-700 hover:text-brandPinkDark">Rutina facial</button>
+                <button onclick="switchView('ingredientes')" id="nav-ingredientes" class="nav-btn px-3 py-2 rounded-full text-sm font-medium transition-all text-gray-700 hover:text-brandPinkDark">Ingredientes</button>
+                <button onclick="switchView('nosotros')" id="nav-nosotros" class="nav-btn px-3 py-2 rounded-full text-sm font-medium transition-all text-gray-700 hover:text-brandPinkDark">Nosotros</button>
+                <button onclick="switchView('contacto')" id="nav-contacto" class="nav-btn px-3 py-2 rounded-full text-sm font-medium transition-all text-gray-700 hover:text-brandPinkDark">Contacto</button>
+            </nav>
+
+            <!-- Search & Actions -->
+            <div class="flex items-center gap-3">
+                <div class="relative hidden sm:block">
+                    <input type="text" id="searchInput" placeholder="Buscar tips, ingredientes..." class="w-48 lg:w-64 pl-9 pr-4 py-1.5 text-xs rounded-full bg-gray-100 border border-transparent focus:border-brandGreen focus:bg-white focus:outline-none transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-gray-400"></i>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-600 hover:text-brandGreen focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-gray-100 px-4 pt-2 pb-4 space-y-1">
+            <button onclick="switchView('inicio'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-brandGreenLight">Inicio</button>
+            <button onclick="switchView('tips'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-brandGreenLight">Tips</button>
+            <button onclick="switchView('articulo'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-brandGreenLight">Rutina facial</button>
+            <button onclick="switchView('ingredientes'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-brandGreenLight">Ingredientes</button>
+            <button onclick="switchView('nosotros'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-brandGreenLight">Nosotros</button>
+            <button onclick="switchView('contacto'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-brandGreenLight">Contacto</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- ================= 1. PÁGINA PRINCIPAL (INDEX) ================= -->
+        <section id="view-inicio" class="view-section active">
+            <!-- Hero Banner -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+                <div class="bg-gradient-to-r from-[#FCEFF2] via-[#F7D7E0]/40 to-[#E8F0E6] rounded-3xl p-6 sm:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
+                    <div class="max-w-xl z-10">
+                        <h1 class="text-3xl sm:text-5xl font-bold text-gray-800 leading-tight mb-4">
+                            Una piel sana también es seguridad <span class="text-brandPinkDark">♡</span>
+                        </h1>
+                        <p class="text-brandText text-base sm:text-lg mb-8 leading-relaxed">
+                            Aquí encontrarás tips, rutinas y consejos para cuidar tu piel todos los días.
+                        </p>
+                        <button onclick="switchView('tips')" class="bg-brandPinkDark hover:bg-opacity-90 text-white font-medium px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all flex items-center gap-3 group text-sm sm:text-base">
+                            Explorar tips 
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                    <!-- Hero Image / Decoration -->
+                    <div class="relative w-full md:w-1/2 flex justify-center items-center">
+                        <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&q=80&w=800" alt="Cuidado Facial Piel Bonita" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -bottom-2 -right-2 sm:bottom-4 sm:right-4 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-gray-100 hidden sm:block">
+                            <p class="font-title text-sm font-semibold text-gray-800">Tu piel también importa ♡</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Categories Grid -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div onclick="switchView('articulo')" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer text-center group">
+                        <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-brandGreenLight flex items-center justify-center text-brandGreen text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-hand-holding-droplet"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Rutina facial</h3>
+                        <p class="text-xs text-brandText mt-1">Paso a paso para una piel saludable</p>
+                    </div>
+
+                    <div onclick="switchView('ingredientes')" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer text-center group">
+                        <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-brandGreenLight flex items-center justify-center text-brandGreen text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-pump-soap"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Productos</h3>
+                        <p class="text-xs text-brandText mt-1">Qué usar según tu tipo de piel</p>
+                    </div>
+
+                    <div onclick="switchView('tips')" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer text-center group">
+                        <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-brandGreenLight flex items-center justify-center text-brandGreen text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-face-smile"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Tipos de piel</h3>
+                        <p class="text-xs text-brandText mt-1">Conoce sus cuidados y necesidades</p>
+                    </div>
+
+                    <div onclick="switchView('ingredientes')" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer text-center group">
+                        <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-brandGreenLight flex items-center justify-center text-brandGreen text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Ingredientes</h3>
+                        <p class="text-xs text-brandText mt-1">Lo natural también es efectivo</p>
+                    </div>
+
+                    <div onclick="switchView('articulo')" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer text-center group">
+                        <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-brandGreenLight flex items-center justify-center text-brandGreen text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Protección solar</h3>
+                        <p class="text-xs text-brandText mt-1">Tu mejor aliada todo el año</p>
+                    </div>
+
+                    <div onclick="switchView('nosotros')" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer text-center group">
+                        <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-brandGreenLight flex items-center justify-center text-brandGreen text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 text-sm">Bienestar</h3>
+                        <p class="text-xs text-brandText mt-1">Cuida tu piel, cuida tu salud</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Tips Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Tips destacados</h2>
+                    <button onclick="switchView('tips')" class="text-sm font-medium text-brandPinkDark hover:underline flex items-center gap-1">
+                        Ver todos los artículos <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Article Card 1 -->
+                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+                        <div class="h-44 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=600" alt="Pasos básicos" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-brandGreenLight text-brandGreen text-xs px-3 py-1 rounded-full font-medium">Rutina facial</span>
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base mb-2">5 pasos básicos para una piel luminosa</h3>
+                                <p class="text-brandText text-xs leading-relaxed mb-4">Descubre cómo limpiar, hidratar y proteger tu piel desde casa.</p>
+                            </div>
+                            <button onclick="switchView('articulo')" class="text-brandPinkDark text-xs font-semibold hover:underline flex items-center gap-1 self-start">
+                                Leer más <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Article Card 2 -->
+                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+                        <div class="h-44 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1608248597263-00079e9624b4?auto=format&fit=crop&q=80&w=600" alt="Ácido Hialurónico" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-brandPink text-brandPinkDark text-xs px-3 py-1 rounded-full font-medium">Ingredientes</span>
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base mb-2">Ácido hialurónico: ¿qué es y para qué sirve?</h3>
+                                <p class="text-brandText text-xs leading-relaxed mb-4">Conoce sus beneficios y cómo incluirlo en tu rutina de cuidado.</p>
+                            </div>
+                            <button onclick="switchView('articulo')" class="text-brandPinkDark text-xs font-semibold hover:underline flex items-center gap-1 self-start">
+                                Leer más <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Article Card 3 -->
+                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+                        <div class="h-44 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=600" alt="Protector Solar" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full font-medium">Protección solar</span>
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base mb-2">¿Por qué es importante usar protector solar?</h3>
+                                <p class="text-brandText text-xs leading-relaxed mb-4">Aunque esté nublado, tu piel también se expone a los rayos UV.</p>
+                            </div>
+                            <button onclick="switchView('articulo')" class="text-brandPinkDark text-xs font-semibold hover:underline flex items-center gap-1 self-start">
+                                Leer más <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Article Card 4 -->
+                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
+                        <div class="h-44 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=600" alt="Hidratación en Casa" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-medium">Tips</span>
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base mb-2">Cómo mantener tu piel hidratada en casa</h3>
+                                <p class="text-brandText text-xs leading-relaxed mb-4">Consejos fáciles y naturales para una piel suave y luminosa.</p>
+                            </div>
+                            <button onclick="switchView('articulo')" class="text-brandPinkDark text-xs font-semibold hover:underline flex items-center gap-1 self-start">
+                                Leer más <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Subscription Banner -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="bg-brandGreenLight rounded-3xl p-6 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-6 border border-brandGreen/20">
+                    <div class="max-w-xl text-center lg:text-left">
+                        <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">¡Recibe nuestros tips en tu correo!</h3>
+                        <p class="text-brandText text-xs sm:text-sm">Suscríbete y recibe consejos, rutinas y novedades para mimar tu piel.</p>
+                    </div>
+                    <form onsubmit="handleNewsletter(event)" class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+                        <input type="email" placeholder="Tu correo electrónico" required class="w-full sm:w-80 px-4 py-3 rounded-full text-xs bg-white border border-transparent focus:border-brandGreen focus:outline-none shadow-sm">
+                        <button type="submit" class="w-full sm:w-auto bg-brandPinkDark text-white text-xs font-medium px-6 py-3 rounded-full hover:bg-opacity-90 shadow-sm transition-all whitespace-nowrap">
+                            Suscribirme
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 2. PÁGINA DE ARTÍCULO (EJEMPLO) ================= -->
+        <section id="view-articulo" class="view-section">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Back Button -->
+                <button onclick="switchView('inicio')" class="text-xs text-brandText hover:text-brandPinkDark mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Volver al inicio
+                </button>
+
+                <!-- Article Header -->
+                <div class="bg-white p-6 sm:p-10 rounded-3xl border border-gray-100 shadow-sm mb-8">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1">
+                            <span class="bg-brandPink text-brandPinkDark text-xs font-medium px-3 py-1 rounded-full inline-block mb-3">Rutina Facial</span>
+                            <h1 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-4">5 pasos básicos para una piel luminosa</h1>
+                            <div class="flex items-center gap-4 text-xs text-brandText mb-4">
+                                <span><i class="fa-regular fa-calendar mr-1"></i> 15 de abril de 2026</span>
+                                <span><i class="fa-regular fa-clock mr-1"></i> 5 min de lectura</span>
+                            </div>
+                            <p class="text-brandText text-sm leading-relaxed">
+                                Una piel luminosa no es cuestión de suerte, sino de hábitos. Aquí te compartimos 5 pasos sencillos para lograr una piel más sana y radiante.
+                            </p>
+                        </div>
+                        <div class="w-full md:w-64 h-64 rounded-2xl overflow-hidden shadow-md flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1512290900676-26c2a6a095ae?auto=format&fit=crop&q=80&w=600" alt="Piel luminosa" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Steps List -->
+                <div class="space-y-4 mb-10">
+                    <!-- Step 1 -->
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brandGreen text-white font-bold flex items-center justify-center flex-shrink-0">1</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-base mb-1">Limpieza</h3>
+                            <p class="text-brandText text-xs leading-relaxed">Elimina impurezas y exceso de grasa con un limpiador adecuado para tu tipo de piel.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brandGreen text-white font-bold flex items-center justify-center flex-shrink-0">2</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-base mb-1">Exfoliación</h3>
+                            <p class="text-brandText text-xs leading-relaxed">Remueve células muertas y mejora la textura de tu piel. Hazlo 1 o 2 veces por semana.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brandGreen text-white font-bold flex items-center justify-center flex-shrink-0">3</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-base mb-1">Tónico</h3>
+                            <p class="text-brandText text-xs leading-relaxed">Equilibra el pH de tu piel y la prepara para los siguientes pasos.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brandGreen text-white font-bold flex items-center justify-center flex-shrink-0">4</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-base mb-1">Hidratación</h3>
+                            <p class="text-brandText text-xs leading-relaxed">Mantiene la piel suave y flexible. Usa una crema según tu tipo de piel.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-brandGreen text-white font-bold flex items-center justify-center flex-shrink-0">5</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-base mb-1">Protección solar</h3>
+                            <p class="text-brandText text-xs leading-relaxed">Previene el envejecimiento y las manchas. Úsalo todos los días, aunque no haya sol.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reminder Card -->
+                <div class="bg-brandPink/30 border border-brandPink p-6 rounded-2xl text-center">
+                    <p class="text-brandPinkDark font-semibold text-sm">
+                        <i class="fa-regular fa-heart mr-2"></i> Recuerda: cada piel es diferente. Escucha la tuya y dale lo que necesita.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 3. PÁGINA DE TIPS ================= -->
+        <section id="view-tips" class="view-section">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Tips de cuidado de la piel</h1>
+                <p class="text-brandText text-sm mb-8">Descubre todos nuestros artículos con los mejores hábitos para mimar tu rostro.</p>
+
+                <!-- Search Filter in Tips -->
+                <div class="mb-8">
+                    <input type="text" id="tipsFilterInput" onkeyup="filterTips()" placeholder="Filtrar por palabra clave (ej. limpiador, mascarillas)..." class="w-full px-5 py-3 rounded-2xl bg-white border border-gray-200 text-xs focus:outline-none focus:border-brandGreen shadow-sm">
+                </div>
+
+                <!-- List of Tips -->
+                <div class="space-y-4" id="tipsList">
+                    <div class="tip-item bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center gap-5">
+                        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=300" alt="Limpiador" class="w-full sm:w-28 h-28 object-cover rounded-xl flex-shrink-0">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-800 text-base mb-1">Cómo elegir el limpiador ideal para tu tipo de piel</h3>
+                            <p class="text-brandText text-xs mb-3">Encuentra la fórmula perfecta que limpie sin alterar la barrera cutánea.</p>
+                            <button onclick="switchView('articulo')" class="text-brandPinkDark text-xs font-semibold hover:underline flex items-center gap-1">Leer más <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="tip-item bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center gap-5">
+                        <img src="https://images.unsplash.com/photo-1512290900676-26c2a6a095ae?auto=format&fit=crop&q=80&w=300" alt="Errores" class="w-full sm:w-28 h-28 object-cover rounded-xl flex-shrink-0">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-800 text-base mb-1">Errores comunes en tu rutina facial (y cómo evitarlos)</h3>
+                            <p class="text-brandText text-xs mb-3">Desde lavar con agua demasiado caliente hasta sobre-exfoliar.</p>
+                            <button onclick="switchView('articulo')" class="text-brandPinkDark text-xs font-semibold hover:underline flex items-center gap-1">Leer más <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="tip-item bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center gap-5">
+                        <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&q=80&w=300" alt="Alimentos" class="w-full sm:w-28 h-28 object-cover rounded-xl flex-shrink-0">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-800 text-base mb-1">Alimentos que mejoran tu piel</h3>
+                            <p class="text-brandText text-xs mb-3">La nutrición es la clave para un brillo natural desde el interior.</p>
+                            <button onclick="switchView('articulo')" class="text-brandPinkDark text-xs font-semibold hover:underline flex items-center gap-1">Leer más <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="tip-item bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-center gap-5">
+                        <img src="https://images.unsplash.com/photo-1567928256008-886915b02131?auto=format&fit=crop&q=80&w=300" alt="Mascarillas" class="w-full sm:w-28 h-28 object-cover rounded-xl flex-shrink-0">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-800 text-base mb-1">5 mascarillas caseras para una piel más luminosa</h3>
+                            <p class="text-brandText text-xs mb-3">Aprovecha ingredientes sencillos de tu cocina para mimar tu rostro.</p>
+                            <button onclick="switchView('articulo')" class="text-brandPinkDark text-xs font-semibold hover:underline flex items-center gap-1">Leer más <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 4. PÁGINA DE INGREDIENTES ================= -->
+        <section id="view-ingredientes" class="view-section">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="flex items-center justify-between mb-2">
+                    <h1 class="text-3xl font-bold text-gray-800">Ingredientes naturales</h1>
+                    <div class="text-brandGreen text-3xl"><i class="fa-solid fa-leaf"></i></div>
+                </div>
+                <p class="text-brandText text-sm mb-8">Conoce los mejores ingredientes para una piel sana y bonita.</p>
+
+                <div class="space-y-4">
+                    <!-- Aloe Vera -->
+                    <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between hover:shadow-md transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?auto=format&fit=crop&q=80&w=200" alt="Aloe vera" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base">Aloe vera</h3>
+                                <p class="text-brandText text-xs">Hidrata y calma la piel.</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-400 text-sm"></i>
+                    </div>
+
+                    <!-- Vitamina C -->
+                    <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between hover:shadow-md transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&q=80&w=200" alt="Vitamina C" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base">Vitamina C</h3>
+                                <p class="text-brandText text-xs">Ilumina y unifica el tono.</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-400 text-sm"></i>
+                    </div>
+
+                    <!-- Avena -->
+                    <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between hover:shadow-md transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=200" alt="Avena" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base">Avena</h3>
+                                <p class="text-brandText text-xs">Suaviza y exfolia suavemente.</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-400 text-sm"></i>
+                    </div>
+
+                    <!-- Miel -->
+                    <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between hover:shadow-md transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&q=80&w=200" alt="Miel" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base">Miel</h3>
+                                <p class="text-brandText text-xs">Nutre y ayuda a reparar la piel.</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-400 text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 5. PÁGINA SOBRE NOSOTROS ================= -->
+        <section id="view-nosotros" class="view-section">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="bg-white p-6 sm:p-10 rounded-3xl border border-gray-100 shadow-sm">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-4">Sobre Piel Bonita</h1>
+                    <p class="text-brandText text-sm leading-relaxed mb-6">
+                        Somos un espacio creado para compartir información confiable y accesible sobre el cuidado de la piel. Creemos que una piel sana también es bienestar, autoestima y confianza.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-brandGreenLight text-brandGreen flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-check text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Tips reales y fáciles de aplicar</h4>
+                                    <p class="text-brandText text-xs">Rutinas pensadas para adaptarse a tu estilo de vida.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-brandGreenLight text-brandGreen flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-shield-heart text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Contenido confiable</h4>
+                                    <p class="text-brandText text-xs">Investigación y pasión por la salud de la piel.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-brandGreenLight text-brandGreen flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-users text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 text-sm">Para todos los tipos de piel</h4>
+                                    <p class="text-brandText text-xs">Diversidad y cuidado personalizado.</p>
+                                </div>
+                            </div>
+
+                            <button onclick="switchView('contacto')" class="mt-4 bg-brandPinkDark text-white text-xs font-medium px-6 py-2.5 rounded-full hover:bg-opacity-90 transition-all">
+                                Conoce más <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+
+                        <div class="rounded-2xl overflow-hidden shadow-md">
+                            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=600" alt="Sobre nosotros" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 6. PÁGINA DE CONTACTO ================= -->
+        <section id="view-contacto" class="view-section">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="bg-white p-6 sm:p-10 rounded-3xl border border-gray-100 shadow-sm">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Contáctanos</h1>
+                    <p class="text-brandText text-xs sm:text-sm mb-8">¿Tienes alguna duda o sugerencia? Escríbenos, nos encantaría saber de ti.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Info Column -->
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-3 text-brandText text-xs sm:text-sm">
+                                <div class="w-10 h-10 rounded-full bg-brandGreenLight text-brandGreen flex items-center justify-center text-lg flex-shrink-0">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-gray-400 text-[10px] uppercase font-semibold">Correo</span>
+                                    <span class="text-gray-800 font-medium">hola@pielbonita.com</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 text-brandText text-xs sm:text-sm">
+                                <div class="w-10 h-10 rounded-full bg-brandGreenLight text-brandGreen flex items-center justify-center text-lg flex-shrink-0">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-gray-400 text-[10px] uppercase font-semibold">Redes sociales</span>
+                                    <div class="flex gap-3 text-brandPinkDark text-base mt-1">
+                                        <a href="#" class="hover:opacity-80"><i class="fa-brands fa-instagram"></i></a>
+                                        <a href="#" class="hover:opacity-80"><i class="fa-brands fa-facebook-f"></i></a>
+                                        <a href="#" class="hover:opacity-80"><i class="fa-brands fa-pinterest-p"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 text-brandText text-xs sm:text-sm">
+                                <div class="w-10 h-10 rounded-full bg-brandGreenLight text-brandGreen flex items-center justify-center text-lg flex-shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-gray-400 text-[10px] uppercase font-semibold">Ubicación</span>
+                                    <span class="text-gray-800 font-medium">Ciudad de México, México</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Column -->
+                        <form onsubmit="handleContact(event)" class="space-y-4">
+                            <div>
+                                <input type="text" placeholder="Nombre" required class="w-full px-4 py-2.5 rounded-xl text-xs bg-gray-50 border border-gray-200 focus:outline-none focus:border-brandGreen">
+                            </div>
+                            <div>
+                                <input type="email" placeholder="Correo electrónico" required class="w-full px-4 py-2.5 rounded-xl text-xs bg-gray-50 border border-gray-200 focus:outline-none focus:border-brandGreen">
+                            </div>
+                            <div>
+                                <textarea placeholder="Mensaje" rows="4" required class="w-full px-4 py-2.5 rounded-xl text-xs bg-gray-50 border border-gray-200 focus:outline-none focus:border-brandGreen resize-none"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-brandPinkDark text-white text-xs font-semibold py-3 rounded-full hover:bg-opacity-90 shadow-sm transition-all">
+                                Enviar mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#8E5260] text-white pt-10 pb-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/20">
+                <!-- Footer Brand -->
+                <div class="flex items-center gap-3 text-center md:text-left">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white text-xl">
+                        <i class="fa-solid fa-spa"></i>
+                    </div>
+                    <div>
+                        <span class="block text-lg font-bold font-title leading-none">Piel Bonita</span>
+                        <span class="text-[11px] text-white/80">Cuida hoy, tu mejor versión</span>
+                    </div>
+                </div>
+
+                <!-- Footer Links -->
+                <div class="flex flex-wrap justify-center gap-4 text-xs font-medium">
+                    <button onclick="switchView('inicio')" class="hover:text-brandPink">Inicio</button>
+                    <span>|</span>
+                    <button onclick="switchView('tips')" class="hover:text-brandPink">Tips</button>
+                    <span>|</span>
+                    <button onclick="switchView('articulo')" class="hover:text-brandPink">Rutina facial</button>
+                    <span>|</span>
+                    <button onclick="switchView('ingredientes')" class="hover:text-brandPink">Ingredientes</button>
+                    <span>|</span>
+                    <button onclick="switchView('tips')" class="hover:text-brandPink">Blog</button>
+                    <span>|</span>
+                    <button onclick="switchView('nosotros')" class="hover:text-brandPink">Nosotros</button>
+                    <span>|</span>
+                    <button onclick="switchView('contacto')" class="hover:text-brandPink">Contacto</button>
+                </div>
+
+                <!-- Footer Socials -->
+                <div class="flex items-center gap-4 text-sm">
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:opacity-80"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="hover:opacity-80"><i class="fa-brands fa-pinterest-p"></i></a>
+                    <a href="#" class="hover:opacity-80"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="text-center text-[11px] text-white/70 mt-6">
+                © 2026 Piel Bonita. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS LOGIC FOR MULTI-VIEW NAVIGATION & INTERACTIONS -->
+    <script>
+        // Switch between mock views
+        function switchView(viewName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.view-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // Show selected section
+            const targetSection = document.getElementById(`view-${viewName}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Update Active Nav Buttons
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('bg-brandGreenLight', 'text-brandGreen');
+                btn.classList.add('text-gray-700');
+            });
+
+            const activeBtn = document.getElementById(`nav-${viewName}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-brandGreenLight', 'text-brandGreen');
+                activeBtn.classList.remove('text-gray-700');
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Newsletter Form Handler
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const messageBox = document.createElement('div');
+            messageBox.className = 'fixed bottom-5 right-5 bg-brandGreen text-white px-6 py-3 rounded-2xl shadow-xl z-50 text-xs font-semibold flex items-center gap-2 animate-bounce';
+            messageBox.innerHTML = '<i class="fa-solid fa-circle-check text-base"></i> ¡Gracias por suscribirte a Piel Bonita!';
+            document.body.appendChild(messageBox);
+            e.target.reset();
+
+            setTimeout(() => {
+                messageBox.remove();
+            }, 3500);
+        }
+
+        // Contact Form Handler
+        function handleContact(e) {
+            e.preventDefault();
+            const messageBox = document.createElement('div');
+            messageBox.className = 'fixed bottom-5 right-5 bg-brandPinkDark text-white px-6 py-3 rounded-2xl shadow-xl z-50 text-xs font-semibold flex items-center gap-2';
+            messageBox.innerHTML = '<i class="fa-solid fa-paper-plane text-base"></i> ¡Mensaje enviado con éxito! Nos pondremos en contacto contigo.';
+            document.body.appendChild(messageBox);
+            e.target.reset();
+
+            setTimeout(() => {
+                messageBox.remove();
+            }, 3500);
+        }
+
+        // Filter Tips in Tips View
+        function filterTips() {
+            const input = document.getElementById('tipsFilterInput').value.toLowerCase();
+            const items = document.querySelectorAll('.tip-item');
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize default view
+        document.addEventListener('DOMContentLoaded', () => {
+            switchView('inicio');
+        });
+    </script>
+</body>
+</html>
 </body>
 </html>
 
