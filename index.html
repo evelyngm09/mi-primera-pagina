@@ -1,114 +1,114 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Primera Página</title>
+    <!-- Iconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ESTILOS CSS PARA LOS BOTONES Y DISEÑO -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<title>Documento sin titulo</title>
+        body {
+            background-color: #1e2638; /* Fondo oscuro */
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            padding: 20 px;
+        }
 
+        /* BARRA SUPERIOR DE BOTONES */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 12 px;
+            background-color: #121722;
+            padding: 15 px;
+            border-radius: 12 px;
+            flex-wrap: wrap;
+            margin-bottom: 30 px;
+            box-shadow: 0 4 px 10 px rgba (0,0,0,0.4);
+        }
+
+        /* ESTILO DE CADA BOTÓN REDONDEADO */
+        .btn-nav {
+            background: linear-gradient (135 deg, #e65c00, #f9d423); /* Degradado Naranja/Rojo */
+            color: white;
+            text-decoration: none;
+            padding: 10 px 18 px;
+            border-radius: 8 px;
+            font-size: 13 px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8 px;
+            transition: transform 0.2 s;
+        }
+
+        .btn-nav:hover {
+            transform: translate Y (-2 px);
+            opacity: 0.9;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        .main-container {
+            max-width: 1000 px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .main-title {
+            margin-bottom: 20 px;
+            font-size: 20 px;
+        }
+
+        /* ESTILO PARA TUS IMÁGENES DE PERFIL */
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20 px;
+            flex-wrap: wrap;
+            margin-top: 20 px;
+        }
+
+        .profile-img {
+            border-radius: 15 px;
+            box-shadow: 0 8 px 16 px rgba (0,0,0,0.3);
+            max-width: 100 %;
+            height: auto;
+        }
+    </style>
 </head>
-
-
 <body>
 
-<p>bienvenidos a mi primer pagina soy Evelyn Gonzalez y me gustan los kdramas   , mi kdrama favorito es the glory ya que es una historia que te deja una gran reflexión y que te atrapa desde los primeros momento, tengo 26, mi mejor amiga es Marlen, odiamos la vida y nos encanta burlarnos de nuestras desgracias, estamos artas de las tareas -.....</p>
+    <!-- BARRA DE BOTONES (Tus enlaces convertidos en botones con iconos) -->
+    <nav class="navbar">
+        <a href="azul-1.html" class="btn-nav"><i class="fa-solid fa-house"></i> Azul</a>
+        <a href="verde-2.html" class="btn-nav"><i class="fa-solid fa-download"></i> Verde</a>
+        <a href="amarillo-3.html" class="btn-nav"><i class="fa-solid fa-magnifying-glass"></i> Amarillo</a>
+        <a href="Principal-4.html" class="btn-nav"><i class="fa-solid fa-star"></i> Principal</a>
+    </nav>
 
-<img src="IMG_20260609_192320445_MFNR.jpg" width="500" alt="imagenpersonal" />
+    <!-- CONTENIDO DE TU PÁGINA -->
+    <main class="main-container">
+        <p class="main-title">¡Bienvenidos a mi primera página! Soy Evelyn González y me gustan los kdramas...</p>
 
-<img src="Captura de pantalla 2026-09-26 001634.png" width="500" alt="imagenpersonal" />
-   
-<h2>Principal(index)</h2>
+        <h2>Principal (index)</h2>
 
-<table border="1">
-    <tr>
-        <td>
-            <a href="azul-1.html">azul-1.html</a>
-            <br>
-            Azul
-        </td>
+        <!-- TUS IMÁGENES DE PERFIL Y TABLA DE VIRTUDES -->
+        <div class="image-container">
+            <img src="IMG_20260609_192320445_MFN.jpg" width="300" alt="Imagen personal" class="profile-img">
+            <img src="Captura de pantalla 2026-09-26 001634.png" width="500" alt="Tabla Virtudes y Defectos" class="profile-img">
+        </div>
+    </main>
 
-        <td>
-            <a href="verde-2.html">verde-2.html</a>
-            <br>
-            Verde
-        </td>
-
-        <td>
-            <a href="amarillo-3.html">amarillo-3.html</a>
-            <br>
-            Amarillo
-        </td>
-
-        <td>
-            <a href="Principal-4.html">Principal-4.html</a>
-        </td>
-    </tr>
-</table>
-
-  th, td {
-      border: 1px solid #777777;
-      padding: 10px;
-    }
-
-    th {
-      background-color: #f5d6e5;
-    }
-
-    .botones {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin: 30px auto;
-    }
-
-    .boton {
-      display: flex;
-      width: 30%;
-      min-width: 100px;
-      max-width: 250px;
-      height: 150px;
-      align-items: center;
-      justify-content: center;
-      border: 5px solid #292929;
-      border-radius: 20px;
-      color: #222222;
-      font-size: 24px;
-      font-weight: bold;
-      text-decoration: none;
-      box-sizing: border-box;
-    }
-
-    .verde {
-      background-color: #55ed8c;
-    }
-
-    .morado {
-      background-color: #ef438c;
-    }
-
-    .amarillo {
-      background-color: #d6f238;
-    }
-
-    .encendido {
-      font-size: 65px;
-    }
-
-    @media (max-width: 600px) {
-      .boton {
-        height: 100px;
-        font-size: 18px;
-      }
-
-      .encendido {
-        font-size: 45px;
-      }
-    }
-  </style>
-</head>
-
-<body> 
 </body>
-
 </html>
+
 
    
